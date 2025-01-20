@@ -9,14 +9,14 @@ import shopPage from './shopPage-Section/productPage'
 import shopProducts from './shopPage-Section/cardsSection'
 
 
-import cardsSection from './shopPage-Section/cardsSection'
-import productPage from './shopPage-Section/productPage'
+// import cardsSection from './shopPage-Section/cardsSection'
+// import productPage from './shopPage-Section/productPage'
 
-import dynamic from './shopPage-Section/dynamic'
+// import dynamic from './shopPage-Section/dynamic'
 import landingPage from './landingPage'
 import product from './product'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [product]
+  types: [hero, side, pick, arrival, blog, shopPage, shopProducts, landingPage, product]
 }
 // landingPage, hero, side, pick, arrival, blog, cardsSection,productPage ,dynamic
