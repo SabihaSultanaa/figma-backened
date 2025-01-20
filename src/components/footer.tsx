@@ -16,10 +16,10 @@ export default function Footer() {
         <div>
           <h4 className="text-gray-500 mb-4">Links</h4>
           <nav className="space-y-4 font-semibold">
-            <a href="#" className="block">Home</a>
-            <a href="#" className="block">Shop</a>
-            <a href="#" className="block">About</a>
-            <a href="#" className="block">Contact</a>
+            <a href="/" className="block">Home</a>
+            <a href="/shop" className="block">Shop</a>
+            <a href="" className="block">About</a>
+            <a href="contact" className="block">Contact</a>
           </nav>
         </div>
         <div>
@@ -36,7 +36,7 @@ export default function Footer() {
             <Input 
               type="email" 
               placeholder="Enter Your Email Address"
-              className="border-b-black border-t-0 border-l-0 border-r-0 rounded-none  px-0 focus-visible:ring-0" 
+              className="border-b-black border-t-0 border-l-0 border-r-0 rounded-none  px-0 focus-visible:ring-0 text-gray-600" 
             />
             <Button variant="ghost" className="font-medium">
               SUBSCRIBE
@@ -44,7 +44,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="mt-16 pt-8 border-t font-semibold">
+      <div className="mt-16 pt-8 border-t border-gray-300 font-semibold">
         <p>2022 Meubel House. All rights reserved</p>
       </div>
     </div>

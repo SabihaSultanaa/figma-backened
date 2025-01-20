@@ -12,11 +12,55 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+import { useEffect, useState } from "react"
+import Link from "next/link"
+
+interface ICart{
+  name: string
+  image: string
+  price: number
+  quantity: number
+}
+
 export default function CheckoutForm() {
+  
+  const [cartItem, setCartItem] = useState<ICart[]>([])
+  const [shipCost, setShipCost] = useState(0)
+
+
+  useEffect(()=>{
+    const data = localStorage.getItem("cart")
+    const cart = data ? JSON.parse(data) : []
+    setCartItem(cart)
+    
+    const ShipmentData = localStorage.getItem("ShipmentData")
+    const shipData = ShipmentData ? JSON.parse(ShipmentData) : []
+    // const shipCost = shipData.shipment_cost.amount.toFixed(2)
+    setShipCost(shipCost)
+  },[])
+  
+
+  function handlePayment(){
+    alert("payment successfull ✅")
+    
+    localStorage.setItem("cart", JSON.stringify([]))
+    setCartItem([])
+  }
+
+ const totalAmount = Number(cartItem.reduce((acc: number, item: ICart) => acc + Number(item.price * item.quantity), 0)) + Number(shipCost ? shipCost : 0)
+
+
+
+
+
+
+
+
   return (
     <div className="w-full min-h-screen bg-white px-4 py-8 md:px-6">
       <div className="max-w-7xl mx-auto grid gap-8 lg:grid-cols-2">
         {/* Billing Details Section */}
+       
         <div className="space-y-8">
           <h1 className="text-3xl font-semibold">Billing details</h1>
           <div className="grid gap-6">
@@ -101,38 +145,49 @@ export default function CheckoutForm() {
 
         {/* Order Summary Section */}
         <div className="lg:pl-8">
+
           <div className="bg-white p-6 space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-medium">Product</h2>
               <h2 className="text-2xl font-medium">Subtotal</h2>
             </div>
-
-            <div className="space-y-4">
+            {cartItem.map((item: ICart, index: number)=>{return (
+            <div className="space-y-4" key={index} >
+           
               <div className="flex justify-between items-center text-base">
-                <div className="text-[#9F9F9F]">
-                  Asgaard sofa <span className="text-black mx-1">×</span> 1
+                 <div className="text-[#888888]">
+                   {item.name} <span className="text-black mx-1">×</span> {item.quantity}
                 </div>
-                <div>Rs. 250,000.00</div>
-              </div>
+                <div>Rs. {item.price * item.quantity}.00</div>
+               </div>
 
-              <div className="flex justify-between items-center text-base">
-                <div>Subtotal</div>
-                <div>Rs. 250,000.00</div>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <div>Total</div>
-                <div className="text-2xl font-bold text-[#B88E2F]">Rs. 250,000.00</div>
-              </div>
+              
+          
             </div>
+          )})} 
 
+<div className="flex justify-between items-center text-base">
+                 <div>Subtotal</div>
+                 <div>Rs. {(cartItem.reduce((acc: number, item: ICart) => acc + Number(item.price * item.quantity), 0))+(shipCost ? shipCost : 0)}.00</div>
+               </div>
+               <div className="flex justify-between items-center text-base">
+               <div>Delivery & Shipping</div>
+                <div>Rs. {shipCost ? "Rs. " + shipCost : "Free"} </div>
+                </div>
+             <div className="flex justify-between items-center">
+               <div>Total</div>
+           <div className="text-2xl font-bold text-[#B88E2F]">Rs. {totalAmount}</div>
+            </div> 
+
+
+{/* direct bank transfer */}
             <div className="border-t border-[#D9D9D9] pt-6">
               <RadioGroup defaultValue="bank-transfer" className="space-y-4">
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="bank-transfer" id="bank-transfer" />
                   <Label htmlFor="bank-transfer">Direct Bank Transfer</Label>
                 </div>
-                <p className="text-[#9F9F9F] text-justify pl-6">
+                <p className="text-[#9F9F9F] text-justify ">
                   Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
                 </p>
                 
@@ -149,12 +204,12 @@ export default function CheckoutForm() {
             </div>
 
             <div className="space-y-6">
-              <p className="text-justify text-sm">
-                Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our{" "}
-                <a href="#" className="underline">privacy policy</a>.
+              <p className="text-justify text-sm text-[16px]">
+                Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our
+                <Link href="#" className="underline font-bold"> privacy policy</Link>.
               </p>
 
-              <Button className="w-full md:w-auto md:min-w-[318px] h-16 rounded-[15px] text-xl mx-auto block border border-black bg-white text-black hover:bg-black hover:text-white transition-colors">
+              <Button className="w-full md:w-auto md:min-w-[318px] h-16 rounded-[15px] text-xl mx-auto block border border-black bg-white text-black hover:bg-black hover:text-white transition-colors"  onClick={handlePayment}>
                 Place order
               </Button>
             </div>

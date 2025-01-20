@@ -35,9 +35,9 @@ async function ShopProducts() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-20">
           {response.map((item: Product, index: number) => (
             <div key={index}>
-              <div className="w-full h-[250px] mt-4 relative">
+              <div className="w-full h-[250px] mt-4 relative ">
                 <Link
-                  href={`/shop/proId?name=${item.name}&image=${item.imagePath}&price=${item.price}`}
+                  href={`/shop/proId?name=${item.name}&image=${item.imagePath}&price=${item.price}&category=${item.category}&description=${item.description}`}  
                 >
                   <Image
                     src={item.imagePath}
@@ -49,17 +49,17 @@ async function ShopProducts() {
                 </Link>
               </div>
 
-              <div className="text-[16px] mt-[16px]">
-                <Link
-                  href={`/shop/proId?name=${item.name}&image=${item.imagePath}&price=${item.price}`}
+              <div className="text-[16px] mt-[46px]">
+                <Link className=""
+                  href={`/shop/proId?name=${item.name}&image=${item.imagePath}&price=${item.price}&category=${item.category}&description=${item.description}`}
                 >
-                  {item.name}
+                  {item.name }
                 </Link>
               </div>
 
-              <div className="text-[24px] font-semibold mt-[6px]">
+              <div className="text-[24px] font-semibold mt-[6px] mb-[50px]">
                 <Link
-                  href={`/shop/proId?name=${item.name}&image=${item.imagePath}&price=${item.price}`}
+                  href={`/shop/proId?name=${item.name}&image=${item.imagePath}&price=${item.price}&category=${item.category}&description=${item.description}`}
                 >
                   Rs. {item.price}.00
                 </Link>

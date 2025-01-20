@@ -1,39 +1,40 @@
-'use client'
-
-import React, { use } from 'react'
+//src\app\shop\[proId]\page.tsx
 import Image from 'next/image'
-import { Star } from 'lucide-react'
+import { Facebook, Heart, Linkedin, MessageCircle, Star, Trash2, Twitter } from 'lucide-react'
 import Header from '@/components/header'
-import { useSearchParams } from 'next/navigation'
+
 import Link from 'next/link'
-import { client } from '@/sanity/lib/client'
+import Counter from '@/components/qty';
+import { client } from '@/sanity/lib/client';
+// import { Sheet } from '@/components/ui/sheet';
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
+export default async function sigleProductDynamic({ searchParams }: { searchParams: Promise<{ name: string; image: string; price: number; category: string; _id: string; description: string }> }) {
+  const { name, image, price, category, _id, description } = await searchParams
 
-// declare global {
-//   interface Window {
-//     Snipcart: any;
-//   } 
-// }
-export default async function sigleProductDynamic() {
-  // const { heading, image, price } = await searchParams;
-  const searchParams=useSearchParams() 
-  const name = searchParams.get('name')
-  const image = searchParams.get('image')
-  const price = searchParams.get('price')
-
-
-
-// additinal information sanity data 
-  const res1= await client.fetch(`*[_type=='productPage'][0].sections[2]
-{'dynamicDescription':dynamicDescription,
-  'dynamicImg':dynamicImg.asset->url,
-  'dynamicImg2':dynamicImg2.asset->url
-  }`)
+  // additinal information sanity data
+  const res1 = await client.fetch(`*[_type=='productPage'][0].sections[2]
+    {'dynamicDescription':dynamicDescription,
+      'dynamicImg':dynamicImg.asset->url,
+      'dynamicImg2':dynamicImg2.asset->url
+      }`)
   const { dynamicDescription, dynamicImg, dynamicImg2 } = await res1;
-//   additional info data ends
+  //   additional info data ends
 
-// again fetching of four products data 
- interface ProductCard {
+  // again fetching of four products data
+  interface ProductCard {
     cardHeading: string;
     cardImg: string;
     cardPrice: number;
@@ -44,23 +45,13 @@ export default async function sigleProductDynamic() {
   );
   const { cardHeading, cardImg, cardPrice } = await res;
 
-// again fetching of four products data ends
-// const handleAddToCart = () => {
-//   window.Snipcart.api.cart.items.add({
-//     id:name,
-//     name:name,
-//     price:price,    
-//     image:image,
-//     url:`/shop/proId?name=${name}&image=${image}&price=${price}`
-   
-// });}
   return (
     <>
       <Header />
 
-      <div className="container mx-auto px-4"> 
-        <div className="xl:mx-0 my-[80px]"> 
-          <div className="w-[363px] h-[21px] text-gray-500 text-14px">
+      <div className="container mx-auto px-4">
+        <div className="xl:mx-0 my-[80px]">
+          <div className="w-[363px] h-[21px] text-gray-500 text-[16px] pl-[20px]">
             Home &nbsp; / &nbsp; Shop &nbsp; / &nbsp;{" "}
             <span className="text-black font-normal">
               {name}
@@ -68,39 +59,42 @@ export default async function sigleProductDynamic() {
           </div>
         </div>
 
-        <section className="flex flex-col md:flex-row gap-[16px] my-[80px]"> 
+        <section className="flex flex-col md:flex-row gap-[16px] my-[80px]">
           <div className="flex flex-col gap-[16px]">
             <div className="w-[170px] h-[138px] bg-[#FFF9E5] relative rounded-[4px] flex justify-center items-center">
-             
-  {image && <Image src={image} alt="image" width={121} height={114} />}
-
+              {image && (
+                <Image src={image} alt="image" width={121} height={114} />
+              )}
             </div>
             <div className="w-[170px] h-[138px] bg-[#FFF9E5] relative rounded-[4px] flex justify-center items-center">
-         
-   {image && <Image src={image} alt="image" width={121} height={114} />}
-
+              {image && (
+                <Image src={image} alt="image" width={121} height={114} />
+              )}
             </div>
             <div className="w-[170px] h-[138px] bg-[#FFF9E5] relative rounded-[4px] flex justify-center items-center">
-            {image && <Image src={image} alt="image" width={121} height={114} />}
+              {image && (
+                <Image src={image} alt="image" width={121} height={114} />
+              )}
             </div>
             <div className="w-[170px] h-[138px] bg-[#FFF9E5] relative rounded-[4px] flex justify-center items-center">
-            {image && <Image src={image} alt="image" width={121} height={114} />}
+              {image && (
+                <Image src={image} alt="image" width={121} height={114} />
+              )}
             </div>
           </div>
           <div className="w-[500px] h-[600px] relative bg-[#FFF9E5] rounded-[4px] flex justify-center items-center">
-        
-          {image && <Image src={image} alt="image" width={446} height={315} />}
-
+            {image && (
+              <Image src={image} alt="image" width={446} height={315} />
+            )}
           </div>
           {/* third new div corner */}
           <div className="xl:w-[500px] xxs:w-[200px] h-[600px] xl:ml-[60px] xxs:ml-[0px]">
-            <div className="text-[24px] font-semibold tracking-[1px]">
+            <div className="text-[42px] font-semibold tracking-[1px]">
               {name}
             </div>
-            <div className="text-[24px] font-normal tracking-[1px]">
-              Rs. {price}
+            <div className="text-[24px] font-normal tracking-[1px] text-gray-600">
+              Rs. {price}.00
             </div>
-           
             <div className="flex gap-1 mt-[16px]">
               <Star size={16} fill="#FFAD33" color="#FFAD33" />
               <Star size={16} fill="#FFAD33" color="#FFAD33" />
@@ -113,29 +107,20 @@ export default async function sigleProductDynamic() {
             </div>
 
             <div className="text-[14px] mt-[10px] w-[373px] xxs:hidden lg:inline-block h-[63px] text-justify">
-              {name}
-
-              Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact,
-              stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound.
+              {description}
+            
+              
             </div>
-
-            <div className="mt-[24px] border-t-[1px] border-t-gray-400 w-[390px]"></div>
 
             {/* colours */}
-            <div className="text-[14px] mr-[8px] xl:mt-[20px] xxs:mt-[40px] text-[#9F9F9F]">Colours:</div>
-            <div className="flex gap-[10px] w-[455px] h-[20px] border-3 items-center mt-[10px]">
-              <div className="rounded-full h-[20px] w-[20px] bg-[#816DFA] cursor-pointer"></div>
-              <div className="rounded-full h-[20px] w-[20px] bg-black cursor-pointer"></div>
-              <div className="rounded-full h-[20px] w-[20px] bg-[#CDBA7B] cursor-pointer"></div>
-            </div>
 
             {/* size */}
-            <div className="text-[14px] text-[#9F9F9F] mt-[20px]">Size:</div>
+            <div className="text-[14px] text-[#9f9f9f] mt-[20px]">Size:</div>
             <div className="mt-[10px] w-[296px] h-[32px] flex gap-[16px] items-center text-center">
               <div
                 className="w-[32px] h-[32px] border-1 rounded-[4px] text-[14px] border-2 border-[#FBEBB5]
-                pt-[3px] bg-[#FBEBB5] cursor-pointer
-                transition ease-in-out delay-50 font-semibold"
+                  pt-[3px] bg-[#FBEBB5] cursor-pointer
+                  transition ease-in-out delay-50 font-semibold"
               >
                 L
               </div>
@@ -147,32 +132,124 @@ export default async function sigleProductDynamic() {
               </div>
             </div>
 
+            <div className="text-[14px] mr-[8px] xl:mt-[20px] xxs:mt-[40px] text-[#9F9F9F]">Colours:</div>
+            <div className="flex gap-[10px] w-[455px] h-[20px] border-3 items-center mt-[10px] mb-[40px]">
+              <div className="rounded-full h-[20px] w-[20px] bg-[#816DFA] cursor-pointer  
+                active:border-2 active:border-black"></div>
+              <div className="rounded-full h-[20px] w-[20px] bg-black cursor-pointer active:border-2 active:border-black"></div>
+              <div className="rounded-full h-[20px] w-[20px] bg-[#CDBA7B] cursor-pointer   active:border-2 active:border-black"></div>
+            </div>
             {/* 1 2 3 , buynow, heart */}
             <div className="mt-[24px] text-[24px] font-semibold w-[350px] h-[50px] gap-[16px]
           flex justify-center items-center ">
               {/* 1 2 + */}
-              <div className="rounded-[10px] flex border-2 border-gray-400">
-                <div className="w-[40px] h-[44px] text-[30px] flex items-center 
-              justify-center pb-[35px] font-bold ">_</div>
-                <div className="w-[80px] h-[44px] flex items-center justify-center">1</div>
-                <div className="w-[41px] h-[44px] text-black text-[30px] flex items-center 
-              justify-center pb-[8px] rounded-tr-[3px] ">+</div>
+              <div className="rounded-[10px] flex  border-gray-400">
+                 <Counter />
               </div>
 
-              {/* buy now */}
+              {/* add to cart--------------------------------------------------------------------------------------*/}
+              <Link href={`/cart?name=${name}&image=${image}&price=${price}`}>
               <button className="w-[180px] p-[20px] border-2 border-black text-[16px] text-center
-               rounded-[10px] hover:bg-black hover:text-white transition duration-300" >Add To Cart</button>
-               {/* onClick={handleAddToCart} */}
+               rounded-[10px] hover:bg-black hover:text-white transition duration-300 " >Add To Cart</button></Link>
             </div>
 
-            {/* free delivery */}
+            {/* category */}
             <div className="mt-[40px] h-[90px] w-[400px] rounded-t-[4px] flex gap-[16px] items-center leading-8">
-              <div className="w-[250] h-[40px] ml-[12px] mt-[10px] text-[#9F9F9F]"> SKU : SS001 <br />Category : Sofas <br /> Tags : Sofa , Chair , Home , Shop</div>
+              <div className="w-[270] h-[40px] ml-[12px] mt-[10px] text-[#949494]"> 
+                <div className='flex gap-[40px]'><div>SKU </div><div>: SS000{_id}</div></div>
+                 <br />
+                 <div className='flex gap-[10px]'><div>Category </div>:<div> {category}</div></div>: 
+                  <br /> 
+                  <div className='flex gap-[45px]'>
+                    <div>Tags </div><div>: Sofa , Chair , Home , Shop</div>
+               
+                  
+                  </div>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  </div>
             </div>
           </div>
+           
+
         </section>
-        
-      <div className=""> 
+      
+             {/* Share */}
+     <div className="w-[250]  ml-[780px] gap-[35px] pt-[35px]  flex">
+              <div className="text-sm text-[#9F9F9F]">Share  </div> 
+<span className='text-gray-500'>:</span>
+              <div className="flex gap-8">
+                <Facebook className=" border-2  h-[30px] w-[30px] text-white bg-black rounded-full p-[4px]" />
+                <Linkedin className="border-2  h-[30px] w-[30px] text-white bg-black rounded-full p-[4px]" />
+                <Twitter  className="border-2  h-[30px] w-[30px] text-white bg-black rounded-full p-[4px]" />
+              </div>
+         
+   {/* heart Icons */}
+   {/* <Sheet >
+      <SheetTrigger asChild>
+        <div id="sheet"><Heart className=" text-red-500 cursor-pointer" size={30}/></div>
+      </SheetTrigger>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Shopping Cart</SheetTitle>
+          <SheetDescription>
+         
+                <div className="flex items-center py-8 border-b">
+                  <div className="grid grid-cols-4 flex-1 items-center">
+                    <div className="flex items-center gap-4">
+                      <div className="w-[80px] h-[106px] bg-[#FBEBB5] rounded-lg flex items-center justify-center mb-[10px]">
+                        <Image
+                          src={cardImg}
+                          alt="Asgaard sofa"
+                          width={200}
+                          height={100}
+                        />
+                      </div>
+                      <span className="text-gray-500 xxs:hidden xl:inline-block w-[80px]">
+                     {cardHeading}
+                      </span>
+                    </div>
+                    <div className="text-gray-500">Rs. {cardPrice}.00</div>
+                  
+                  </div>
+                </div>
+
+
+          
+
+           
+          </SheetDescription>
+        </SheetHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Name
+            </Label>
+            <Input id="name" value="Pedro Duarte" className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="text-right">
+              Username
+            </Label>
+            <Input id="username" value="@peduarte" className="col-span-3" />
+          </div>
+        </div>
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button type="submit">Save changes</Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet> */}
+   </div>
+{/* additional information */}
+<div className=""> 
 
         <div className="font-semibold text-center mt-[180px] text-[18px]"> 
             Description  &nbsp; &nbsp;   
@@ -236,6 +313,7 @@ export default async function sigleProductDynamic() {
         </div> 
 
       </div> 
+    
     </>
   )
 }

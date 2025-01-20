@@ -28,8 +28,8 @@ export default function Topheader() {
         <div className="hidden xl:flex items-center space-x-[50px]">
           <Link href="/account"><User size={24} className="hover:text-gray-600 stroke-2" /></Link>
           <Link href=""><Search size={24} className="hover:text-gray-600 stroke-2" /></Link>
-          <Link href=""><Heart size={24} className="hover:text-gray-600 stroke-2" /></Link>
-          <Link href=""><ShoppingCart size={24} className="hover:text-gray-600 stroke-2" /></Link>
+          <Link href="/cart"><Heart size={24} className="hover:text-gray-600 stroke-2" /></Link>
+          <Link href="/cart"><ShoppingCart size={24} className="hover:text-gray-600 stroke-2" /></Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -50,8 +50,8 @@ export default function Topheader() {
           <div className="flex justify-between mt-4">
             <Link href="/account"><User size={24} className="hover:text-gray-600 stroke-2" /></Link>
             <Link href=""><Search size={24} className="hover:text-gray-600 stroke-2" /></Link>
-            <Link href=""><Heart size={24} className="hover:text-gray-600 stroke-2" /></Link>
-            <Link href=""><ShoppingCart size={24} className="hover:text-gray-600 stroke-2" /></Link>
+            <Link href="/cart"><Heart size={24} className="hover:text-gray-600 stroke-2" /></Link>
+            <Link href="/cart"><ShoppingCart size={24} className="hover:text-gray-600 stroke-2" /></Link>
           </div>
         </div>
       )}

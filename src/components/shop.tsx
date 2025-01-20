@@ -35,9 +35,9 @@ function Shop() {
           {/* show */}
           <div className='flex gap-[5px] items-center w-full md:w-1/2'>
             <div className='text-[20px] '>Show</div>
-            <button className='w-[55px] h-[55px] text-[20px] bg-white'>16</button>
+            <button className='w-[55px] h-[55px] text-[20px] text-gray-500 bg-white'>16</button>
             <div className='text-[20px] w-[100px] '>Short By</div>
-            <button className='w-[188px] h-[55px] text-[20px] bg-white'>Default</button>
+            <button className='w-[188px] h-[55px] text-[20px] bg-white text-gray-500'>Default</button>
           </div>
         </div>
       </div> 
